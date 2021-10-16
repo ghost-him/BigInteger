@@ -8,69 +8,30 @@ LongNum的接口:
 
 构造函数,允许使用const char* 类型,int类型,以及LongNum类型进行构造
 
-LongNum(LongNum & lfs);
-LongNum(const char* num);
-LongNum(int num);
-
 析构函数,用于清理数据
 
 ~LongNum();
 
 重载运算符+=,-=,++,--,<,<=,==,>,>=以及[],<<
 
-LongNum& operator+=(LongNum &lfs);//重载加法运算符
-LongNum& operator+=(const char * lfs);
-LongNum& operator+=(int num);
-LongNum& operator++();//前置版本;
-LongNum& operator++(int);//后置版本
-
-LongNum& operator-=(LongNum &lfs);//
-LongNum& operator-=(const char* lfs);
-LongNum& operator-=(int num);
-LongNum& operator--();//前置版本;
-LongNum& operator--(int);//后置版本
-
-LongNum& operator*=(LongNum& lfs);
-LongNum& operator*=(const char* num);
-LongNum& operator*=(int num);
-
-LongNum& operator/=(LongNum& lfs);
-LongNum& operator/=(const char* lfs);
-LongNum& operator/=(int num);
-
-LongNum& operator=( LongNum& lfs);
-LongNum& operator=(const char* num);
-LongNum& operator=(int num);
-
-bool operator<( LongNum& lfs);
-bool operator<=(LongNum& lfs);
-bool operator==( LongNum& lfs);
-bool operator!=(LongNum& lfs);
-bool operator>( LongNum& lfs);
-bool operator>=(LongNum& lfs);
-
-bool operator<(const char* lfs);
-bool operator<=(const char* lfs);
-bool operator==(const char * lfs);
-bool operator!=(const char* lfs);
-bool operator>(const char* lfs);
-bool operator>=(const char* lfs);
-
-bool operator<(int num);
-bool operator<=(int num);
-bool operator==(int num);
-bool operator!=(int num);
-bool operator>(int num);
-bool operator>=(int num);
-
-允许访问单个元素
-
-int& operator[](int index);
+允许通过使用[]运算符访问单个元素
 
 自定义数据类型的转换,支持将LongNum类型转换成int类型
-注意:只能转换第一个数字即*data 的值
 
-operator int();//自定义数据类型转换为int类型
+定义了输出函数,默认为cout,允许更改输出流	void print(std::ostream& ost = std::cout);
 
+定义了在前端插入和后端插入的接口,接收的参数为int类型,注意,前端插入的效率比较低
+
+定义了节省空间版本的乘除和取余,当两个数字的大小比较接近时,运算速度较快,空间复杂度为O(1)
+spaceSavingMulti 乘   spaceSavingDivi 除   spaceSavingRema 取余
+
+可以使用size()函数返回当前数字的长度,使用max_size()函数返回最大数字的长度
+
+定义了伪迭代器
+模拟了随机访问迭代器,常量迭代器以及反向迭代器.所有的迭代器均返回int* 类型的指针(常量迭代器返回 const int*) Iterator_begin指向数组的第一个,Iterator_end指向数组接下来应该写入的元素.
+
+定义了调试函数,返回当前元素的地址,数据的地址,数据的值,数据的大小和数组的长度
+
+定义了求二进制的函数,返回一个int* 的变量,指向的是int类型的数组的首地址,使用以后要注意delete[] 
 
 
