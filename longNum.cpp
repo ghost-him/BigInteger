@@ -903,20 +903,34 @@ LongNum::intToChar::operator const char*()
 
 void LongNum::push_back(int num)
 {
-	length++;
-	if (length >= maxLen - 1)
-		addspace(length);
-	*Iterator_end = num;
-	Iterator_end++;
-	*Iterator_end = 10;
+	intToChar temp(num);
+	LongNum lfs(temp);
 
+	if (length + lfs.size() >= maxLen - 1)
+	{
+		addspace(lfs.size()+length);
+	}
+	int* index = lfs.Iterator_begin;
+	int* end = Iterator_end;
+	while (index != lfs.Iterator_end)
+	{
+		*Iterator_end = *index;
+		Iterator_end++;
+		length++;
+		index++;
+	}
+	*Iterator_end = 10;
 }
 
 void LongNum::push_front(int num)
 {
-	move_back(1);
-	*Iterator_begin = num;
-	length++;
+	while (num)
+	{
+		move_back(1);
+		*Iterator_begin = num%10;
+		length++;
+		num /= 10;
+	}
 }
 
 LongNum& LongNum::operator+=(const char* lfs)

@@ -8,7 +8,7 @@ public:
 	LongNum(const char* num);
 	LongNum(int num);
 
-	operator int();//自定义数据类型转换为int类型
+
 
 	~LongNum();//析构函数
 
@@ -57,8 +57,9 @@ public:
 	bool operator>(int num);
 	bool operator>=(int num);
 
-
 	int& operator[](int index);
+
+	operator int();//自定义数据类型转换为int类型
 
 	void print(std::ostream& ost = std::cout);
 
