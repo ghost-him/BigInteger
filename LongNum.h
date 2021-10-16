@@ -15,14 +15,14 @@ public:
 	LongNum& operator+=(LongNum &lfs);//重载加法运算符
 	LongNum& operator+=(const char * lfs);
 	LongNum& operator+=(int num);
-	LongNum operator++();//前置版本;
-	LongNum operator++(int);//后置版本
+	LongNum& operator++();//前置版本;
+	LongNum& operator++(int);//后置版本
 
 	LongNum& operator-=(LongNum &lfs);//
 	LongNum& operator-=(const char* lfs);
 	LongNum& operator-=(int num);
-	LongNum operator--();//前置版本;
-	LongNum operator--(int);//后置版本
+	LongNum& operator--();//前置版本;
+	LongNum& operator--(int);//后置版本
 
 	LongNum& operator*=(LongNum& lfs);
 	LongNum& operator*=(const char* num);

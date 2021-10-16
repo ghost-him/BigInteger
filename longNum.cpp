@@ -57,14 +57,14 @@ LongNum& LongNum::operator+=(int num)
 	return *this;
 }
 
-LongNum LongNum::operator++()
+LongNum& LongNum::operator++()
 {
 	LongNum temp("1");
 	*this += temp;
 	return *this;
 }
 
-LongNum LongNum::operator++(int)
+LongNum& LongNum::operator++(int)
 {
 	auto re = *this;
 	operator++();
@@ -83,14 +83,14 @@ LongNum& LongNum::operator-=(LongNum& lfs)
 	return minus(lfs);
 }
 
-LongNum LongNum::operator--()//前置版本;
+LongNum& LongNum::operator--()//前置版本;
 {
 	LongNum temp("1");
 	*this -= temp;
 	return *this;
 }
 
-LongNum LongNum::operator--(int)//后置版本
+LongNum& LongNum::operator--(int)//后置版本
 {
 	auto re = *this;
 	operator--();
@@ -936,14 +936,16 @@ LongNum& LongNum::operator-=(const char* lfs)
 LongNum& LongNum::operator-=(int num)
 {
 	intToChar temp(num);
-	*this -= temp;
+	LongNum lfs(temp);
+	*this -= lfs;
 	return *this;
 }
 
 LongNum& LongNum::operator*=(int num)
 {
 	intToChar temp(num);
-	*this *= temp;
+	LongNum lfs(temp);
+	*this *= lfs;
 	return *this;
 }
 
@@ -957,78 +959,73 @@ LongNum& LongNum::operator/=(const char* lfs)
 LongNum& LongNum::operator/=(int num)
 {
 	intToChar temp(num);
-	*this /= temp;
+	LongNum lfs(temp);
+	*this /= lfs;
 	return *this;
 }
 
 bool  LongNum::operator<(const char* lfs)
 {
 	LongNum temp = lfs;
-	return *this<lfs;
+	return *this<temp;
 }
 
 bool  LongNum::operator<=(const char* lfs)
 {
 	LongNum temp = lfs;
-	return *this<=lfs;
-}
-
-bool  LongNum::operator==(const char* lfs)
-{
-	LongNum temp = lfs;
-	return *this==lfs;
-}
-
-bool  LongNum::operator!=(const char* lfs)
-{
-	LongNum temp = lfs;
-	return *this!=lfs;
+	return *this<=temp;
 }
 
 bool  LongNum::operator>(const char* lfs)
 {
 	LongNum temp = lfs;
-	return *this>lfs;
+	return *this>temp;
 }
 
 bool LongNum:: operator>=(const char* lfs)
 {
 	LongNum temp = lfs;
-	return *this>=lfs;
+	return *this>=temp;
 }
 
 bool LongNum:: operator<(int num)
 {
 	intToChar temp(num);
-	return *this<temp;
+	LongNum lfs(temp);
+	return *this<lfs;
 }
 
 bool LongNum:: operator<=(int num)
 {
 	intToChar temp(num);
-	return *this <= temp;
+	LongNum lfs(temp);
+	return *this <= lfs;
 }
 
 bool  LongNum::operator==(int num)
 {
 	intToChar temp(num);
-	return *this == temp;
+	LongNum lfs(temp);
+	return *this == lfs;
 }
 
 bool LongNum:: operator!=(int num)
 {
 	intToChar temp(num);
-	return *this != temp;
+	LongNum lfs(temp);
+	return *this != lfs;
 }
 
 bool LongNum:: operator>(int num)
 {
 	intToChar temp(num);
-	return *this > temp;
+	LongNum lfs(temp);
+	return *this > lfs;
 }
 
 bool  LongNum::operator>=(int num)
 {
 	intToChar temp(num);
-	return *this >= temp;
+	LongNum lfs(temp);
+	return *this >= lfs;
 }
