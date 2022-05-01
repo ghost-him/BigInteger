@@ -1,4 +1,3 @@
-
 #pragma once
 #include <deque>
 #include <string>
@@ -15,6 +14,7 @@ class BigInteger {
     friend const BigInteger operator/ (BigInteger&, BigInteger&);
     friend const BigInteger operator% (BigInteger&, BigInteger&);
 
+    friend bool operator!=(BigInteger&, BigInteger&);
     friend bool operator==(BigInteger&, BigInteger&);
     friend bool operator>(BigInteger&, BigInteger&);
     friend bool operator>=(BigInteger&, BigInteger&);
@@ -54,7 +54,7 @@ public:
     // 自定义类型转换
     operator long long();
     // 其他函数
-    inline VALID_INDEX size();     // 返回当前的长度
+    VALID_INDEX size();     // 返回当前的长度
 
 
 private:
@@ -98,18 +98,21 @@ const BigInteger operator* (BigInteger&, long long);
 const BigInteger operator/ (BigInteger&, long long);
 const BigInteger operator% (BigInteger&, long long);
 
+bool operator!=(const BigInteger&, BigInteger&);
 bool operator==(const BigInteger&, BigInteger&);
 bool operator>(const BigInteger&, BigInteger&);
 bool operator>=(const BigInteger&, BigInteger&);
 bool operator<(const BigInteger&, BigInteger&);
 bool operator<=(const BigInteger&, BigInteger&);
 
+bool operator!=(BigInteger&, long long);
 bool operator==(const BigInteger&, long long);
 bool operator>(const BigInteger&, long long);
 bool operator>=(const BigInteger&, long long);
 bool operator<(const BigInteger&, long long);
 bool operator<=(const BigInteger&, long long);
 
+bool operator!=(BigInteger&, BigInteger&);
 bool operator==(BigInteger&, BigInteger&);
 bool operator>(BigInteger&, BigInteger&);
 bool operator>=(BigInteger&, BigInteger&);

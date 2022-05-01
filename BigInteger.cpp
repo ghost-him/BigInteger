@@ -143,7 +143,7 @@ BigInteger::operator long long() {
     else return res;
 }
 
-inline VALID_INDEX BigInteger::size() {
+VALID_INDEX BigInteger::size() {
     return this->_size;
 }
 
@@ -446,6 +446,11 @@ const BigInteger operator% (BigInteger& left, long long right) {
     return left % temp;
 }
 
+bool operator!=(const BigInteger& left, BigInteger& right) {
+    BigInteger & temp = const_cast<BigInteger &>(left);
+    return temp != right;
+}
+
 bool operator==(const BigInteger& left, BigInteger& right) {
     BigInteger & temp = const_cast<BigInteger &>(left);
     return temp == right;
@@ -501,6 +506,10 @@ bool operator<=(const BigInteger& left, long long right) {
     return temp <= num;
 }
 
+bool operator!=(BigInteger& left, BigInteger& right) {
+    return !(left == right);
+}
+
 bool operator==(BigInteger& left, BigInteger& right) {
     if (left._sign != right._sign) return false;
     if (left.size() != right.size()) return false;
@@ -540,6 +549,10 @@ bool operator<(BigInteger& left, BigInteger& right) {
 
 bool operator<=(BigInteger& left, BigInteger& right) {
     return !(left > right);
+}
+
+bool operator!=(BigInteger& left, long long right) {
+    return (long long)left != right;
 }
 
 bool operator==(BigInteger& left, long long right) {
