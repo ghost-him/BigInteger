@@ -129,18 +129,12 @@ void BigInteger::operator%= (long long right) {
     (*this) = (*this) % temp;
 }
 
-inline short& BigInteger::operator[](VALID_INDEX index) {
+inline short BigInteger::operator[](VALID_INDEX index) const {
     return _point[index];
 }
 
-BigInteger::operator long long() {
-    // 可以转换成 long long类型
-    long long res = 0;
-    for (VALID_INDEX i = _size - 1; i >= 0; i--) {
-        res = res * 10 + _point[i];
-    }
-    if (_sign == true) return -res;
-    else return res;
+BigInteger::operator long long() const{
+    return get_nums();
 }
 
 VALID_INDEX BigInteger::size() {
@@ -223,12 +217,12 @@ BigInteger BigInteger::add(BigInteger& left, BigInteger& right) {
         if (i < right.size()) {
             progression += right[i];
         }
-        res[i] = progression % 10;
+        res._point[i] = progression % 10;
         progression /= 10;
     }
     res.set_size(i + 1);
     if (progression) {
-        res[i] = progression;
+        res._point[i] = progression;
     }
     res.regular();
     return res;
@@ -243,7 +237,7 @@ BigInteger BigInteger::minus(BigInteger& left, BigInteger& right) {
     for (int i = 0, len = max_index; i < len; i++) {
         progression = left[i] - progression;
         if (i < right.size()) progression -= right[i];
-        res[i] = (progression + 10) % 10;
+        res._point[i] = (progression + 10) % 10;
         if (progression < 0)
             progression = 1;
         else
@@ -264,11 +258,11 @@ BigInteger BigInteger::mul(BigInteger& left, BigInteger& right) {
         for (VALID_INDEX r_index = 0; r_index < right.size(); r_index++, res_idx++) {
             progression += right[r_index] * left[l_index];
             progression += res[res_idx];
-            res[res_idx] = progression % 10;
+            res._point[res_idx] = progression % 10;
             progression /= 10;
         }
         if (progression) {
-            res[res_idx] = progression;
+            res._point[res_idx] = progression;
         }
     }
     res.set_size(max_size);
@@ -288,7 +282,7 @@ BigInteger BigInteger::div(BigInteger& left, BigInteger& right, BigInteger& rema
             val++;
             progression -= right;
         }
-        res[l_index] = val;
+        res._point[l_index] = val;
     }
     res.set_size(left.size() + 1);
     res.regular();
@@ -329,6 +323,16 @@ bool BigInteger::abs_compare(BigInteger& right) {
     return false;
 }
 
+inline long long BigInteger::get_nums() const{
+    // 可以转换成 long long类型
+    long long res = 0;
+    for (VALID_INDEX i = _size - 1; i >= 0; i--) {
+        res = res * 10 + _point[i];
+    }
+    if (_sign == true) return -res;
+    else return res;
+}
+
 std::ostream& operator<< (std::ostream& outstream, const BigInteger& output) {
     BigInteger temp = output;
     return operator<<(outstream, temp);
@@ -346,6 +350,26 @@ std::ostream& operator<< (std::ostream& outstream, BigInteger& output) {
     }
     outstream << temp;
     return outstream;
+}
+
+const BigInteger operator+ (const BigInteger& left, BigInteger& right) {
+    return left + right;
+}
+
+const BigInteger operator- (const BigInteger& left, BigInteger& right) {
+    return left - right;
+}
+
+const BigInteger operator* (const BigInteger& left, BigInteger& right) {
+    return left * right;
+}
+
+const BigInteger operator/ (const BigInteger& left, BigInteger& right) {
+    return left / right;
+}
+
+const BigInteger operator% (const BigInteger& left, BigInteger& right) {
+    return left % right;
 }
 
 const BigInteger operator+ (BigInteger& left, BigInteger& right) {
@@ -447,63 +471,51 @@ const BigInteger operator% (BigInteger& left, long long right) {
 }
 
 bool operator!=(const BigInteger& left, BigInteger& right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    return temp != right;
+    return left != right;
 }
 
 bool operator==(const BigInteger& left, BigInteger& right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    return temp == right;
+    return left == right;
 }
 
 bool operator>(const BigInteger& left, BigInteger& right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    return temp > right;
+    return left > right;
 }
 
 bool operator>=(const BigInteger& left, BigInteger& right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    return temp >= right;
+    return left >= right;
 }
 
 bool operator<(const BigInteger& left, BigInteger& right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    return temp < right;
+    return left < right;
 }
 
 bool operator<=(const BigInteger& left, BigInteger& right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    return temp <= right;
+    return left <= right;
+}
+
+bool operator!=(const BigInteger& left, long long right) {
+    return (long long)left != right;
 }
 
 bool operator==(const BigInteger& left, long long right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    BigInteger num = right;
-    return temp == num;
+    return (long long)left == right;
 }
 
 bool operator>(const BigInteger& left, long long right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    BigInteger num = right;
-    return temp > num;
+    return (long long)left > right;
 }
 
 bool operator>=(const BigInteger& left, long long right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    BigInteger num = right;
-    return temp >= num;
+    return (long long)left >= right;
 }
 
 bool operator<(const BigInteger& left, long long right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    BigInteger num = right;
-    return temp < num;
+    return (long long)left < right;
 }
 
 bool operator<=(const BigInteger& left, long long right) {
-    BigInteger & temp = const_cast<BigInteger &>(left);
-    BigInteger num = right;
-    return temp <= num;
+    return (long long)left <= right;
 }
 
 bool operator!=(BigInteger& left, BigInteger& right) {

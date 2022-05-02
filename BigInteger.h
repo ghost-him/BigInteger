@@ -50,9 +50,9 @@ public:
     void operator%= (BigInteger&);
     void operator%= (long long);
     // 重载运算符
-    inline short& operator[](VALID_INDEX);
+    inline short operator[](VALID_INDEX) const;
     // 自定义类型转换
-    operator long long();
+    explicit operator long long() const;
     // 其他函数
     VALID_INDEX size();     // 返回当前的长度
 
@@ -75,6 +75,8 @@ private:
     inline void push_front(short); // 添加最后的次数
 
     bool abs_compare(BigInteger&);     // 若大于,则返回true
+    inline long long get_nums() const;
+
 
     VALID_INDEX _size = 0;
     std::deque<short> _point;     // 指向在堆中的数组
@@ -85,6 +87,12 @@ private:
 
 std::ostream& operator<< (std::ostream&, BigInteger&);
 std::ostream& operator<< (std::ostream&, const BigInteger&);
+
+const BigInteger operator+ (const BigInteger& left, BigInteger& right);
+const BigInteger operator- (const BigInteger& left, BigInteger& right);
+const BigInteger operator* (const BigInteger& left, BigInteger& right);
+const BigInteger operator/ (const BigInteger& left, BigInteger& right);
+const BigInteger operator% (const BigInteger& left, BigInteger& right);
 
 const BigInteger operator+ (BigInteger&, BigInteger&);
 const BigInteger operator- (BigInteger&, BigInteger&);
@@ -105,7 +113,7 @@ bool operator>=(const BigInteger&, BigInteger&);
 bool operator<(const BigInteger&, BigInteger&);
 bool operator<=(const BigInteger&, BigInteger&);
 
-bool operator!=(BigInteger&, long long);
+bool operator!=(const BigInteger&, long long);
 bool operator==(const BigInteger&, long long);
 bool operator>(const BigInteger&, long long);
 bool operator>=(const BigInteger&, long long);
