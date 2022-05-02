@@ -22,6 +22,16 @@
 目前支持的函数有:
 
 ```
+// 构造函数
+BigInteger();
+BigInteger(const BigInteger&);
+BigInteger(const std::string&);
+BigInteger(const char*);
+BigInteger(const long long);
+    
+// 析构函数
+~BigInteger();
+
 // 加法运算
 void operator+= (BigInteger&);
 void operator+= (long long);
@@ -31,7 +41,7 @@ BigInteger operator++(int);    				// 后置运算符
 // 减法运算
 void operator-= (BigInteger&);
 void operator-= (long long);
-BigInteger operator--(void);    			// 前置运算符
+BigInteger operator--(void);         	// 前置运算符
 BigInteger operator--(int);    				// 后置运算符
 
 // 乘法运算
@@ -47,13 +57,14 @@ void operator%= (BigInteger&);
 void operator%= (long long);
 
 // 重载运算符
-inline short& operator[](VALID_INDEX);
+inline short operator[](VALID_INDEX) const;
 
 // 自定义类型转换
-operator long long();					// 可以将自己转换为一个long long 类型
+explicit operator long long() const;
 
 // 其他函数
-inline VALID_INDEX size();     // 返回当前的长度
+VALID_INDEX size();     // 返回当前的长度
+
 ```
 
 `VALID_INDEX`类型为`long long`类型, 用来描述`deque`中的下标的最大值, 即`BigInteger`类型的**位数**
@@ -128,10 +139,3 @@ a != b
 a <= b
 a < b
 ```
-
-
-
-
-
-
-
